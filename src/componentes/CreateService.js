@@ -38,43 +38,51 @@ const CreateService = () => {
         <div className="create-service-container">
             <h1>Crear servicio</h1>
             <form onSubmit={handleSubmit}>
-                <div className="image-upload">
-                    <label htmlFor="imageInput">
-                        {imagePreview ? (
-                            <img src={imagePreview} alt="Vista previa" className="image-preview" />
-                        ) : (
-                            <div className="image-placeholder">Subir imagen</div>
-                        )}
-                        <input type="file" id="imageInput" accept="image/*" onChange={handleImageChange} />
-                    </label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleInputChange} placeholder="Nombre" />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="precio">Precio</label>
-                    <input type="text" id="precio" name="precio" value={formData.precio} onChange={handleInputChange} placeholder="Precio" />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="categoria">Categoría</label>
-                    <input type="text" id="categoria" name="categoria" value={formData.categoria} onChange={handleInputChange} placeholder="Categoría" />
-                </div>
-                <div className="form-group">
+                <div className="form-grid">
+                    <div className="image-upload">
+                        <label htmlFor="imageInput">
+                            {imagePreview ? (
+                                <img src={imagePreview} alt="Vista previa" className="image-preview" />
+                            ) : (
+                                <div className="image-placeholder">
+                                    <span className="icon">📷</span>
+                                    <span className="text">Subir imagen</span>
+                                </div>
+                            )}
+                            <input type="file" id="imageInput" accept="image/*" onChange={handleImageChange} />
+                        </label>
+                    </div>
+                    <div className="form-group description-group">
+                        <label htmlFor="descripcion">Descripcion</label>
+                        <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleInputChange} placeholder="Descripción"></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleInputChange} placeholder="Nombre" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="precio">Precio</label>
+                        <input type="text" id="precio" name="precio" value={formData.precio} onChange={handleInputChange} placeholder="Precio" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="categoria">Categoría</label>
+                        <input type="text" id="categoria" name="categoria" value={formData.categoria} onChange={handleInputChange} placeholder="Categoría" />
+                    </div>
+                    <div className="form-group">
                     <label htmlFor="modalidad">Modalidad</label>
                     <select id="modalidad" name="modalidad" value={formData.modalidad} onChange={handleInputChange}>
                         <option value="presencial">Presencial</option>
-                        <option value="en-linea">En línea</option>
+                        <option value="sincronica">Virtual sincronica</option>
+                        <option value="asincronica">Virtual asincronica</option>
+
                     </select>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="descripcion">Descripción</label>
-                    <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleInputChange} placeholder="Descripción"></textarea>
+                    <button type="submit" className="submit-button">Siguiente</button>
                 </div>
-                <button type="submit" className="submit-button">Siguiente</button>
             </form>
         </div>
     );
 };
 
 export default CreateService;
+
