@@ -121,6 +121,13 @@ select:focus {
     outline: none;
 }
 
+/* Error de texto */
+.error-text {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
 /* Botón de envío */
 .submit-button {
     grid-area: button;
@@ -163,5 +170,3 @@ select:focus {
     margin-left: 5px;
     color: #00c853;
 }
-
-

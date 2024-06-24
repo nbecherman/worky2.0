@@ -11,6 +11,7 @@ const CreateService = () => {
     });
     const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
+    const [errors, setErrors] = useState({});
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -28,10 +29,29 @@ const CreateService = () => {
         }
     };
 
+    const validateForm = () => {
+        let formErrors = {};
+
+        if (!formData.nombre) formErrors.nombre = "El nombre es requerido.";
+        if (!formData.precio || !/^\$\d+(,\d{3})*(\.\d{2})?$/.test(formData.precio)) {
+            formErrors.precio = "El precio debe estar en formato de dinero. Ej: $123.45";
+        }
+        if (!formData.categoria) formErrors.categoria = "La categoría es requerida.";
+        if (!formData.modalidad) formErrors.modalidad = "La modalidad es requerida.";
+        if (!formData.descripcion) formErrors.descripcion = "La descripción es requerida.";
+        if (!image) formErrors.image = "La imagen es requerida.";
+
+        setErrors(formErrors);
+
+        return Object.keys(formErrors).length === 0;
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Maneja el envío del formulario, por ejemplo, con una solicitud a la API
-        console.log(formData, image);
+        if (validateForm()) {
+            // Maneja el envío del formulario, por ejemplo, con una solicitud a la API
+            console.log(formData, image);
+        }
     };
 
     return (
@@ -51,22 +71,54 @@ const CreateService = () => {
                             )}
                             <input type="file" id="imageInput" accept="image/*" onChange={handleImageChange} />
                         </label>
+                        {errors.image && <p className="error-text">{errors.image}</p>}
                     </div>
                     <div className="form-group description-group">
                         <label htmlFor="descripcion">Descripcion</label>
-                        <textarea id="descripcion" name="descripcion" value={formData.descripcion} onChange={handleInputChange} placeholder="Descripción"></textarea>
+                        <textarea
+                            id="descripcion"
+                            name="descripcion"
+                            value={formData.descripcion}
+                            onChange={handleInputChange}
+                            placeholder="Descripción"
+                        ></textarea>
+                        {errors.descripcion && <p className="error-text">{errors.descripcion}</p>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" value={formData.nombre} onChange={handleInputChange} placeholder="Nombre" />
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            value={formData.nombre}
+                            onChange={handleInputChange}
+                            placeholder="Nombre"
+                        />
+                        {errors.nombre && <p className="error-text">{errors.nombre}</p>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="precio">Precio</label>
-                        <input type="text" id="precio" name="precio" value={formData.precio} onChange={handleInputChange} placeholder="Precio" />
+                        <input
+                            type="text"
+                            id="precio"
+                            name="precio"
+                            value={formData.precio}
+                            onChange={handleInputChange}
+                            placeholder="$0.00"
+                        />
+                        {errors.precio && <p className="error-text">{errors.precio}</p>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="categoria">Categoría</label>
-                        <input type="text" id="categoria" name="categoria" value={formData.categoria} onChange={handleInputChange} placeholder="Categoría" />
+                        <input
+                            type="text"
+                            id="categoria"
+                            name="categoria"
+                            value={formData.categoria}
+                            onChange={handleInputChange}
+                            placeholder="Categoría"
+                        />
+                        {errors.categoria && <p className="error-text">{errors.categoria}</p>}
                     </div>
                     <div className="form-group">
                     <label htmlFor="modalidad">Modalidad</label>
@@ -85,4 +137,3 @@ const CreateService = () => {
 };
 
 export default CreateService;
-
