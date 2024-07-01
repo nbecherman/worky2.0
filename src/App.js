@@ -1,6 +1,6 @@
 import React from 'react';
 import './css/App.css';
-import Horario from './componentes/horario';
+import Horario from './componentes/Horario';
 import CrearServicio from './componentes/CreateService';
 function App() {
   return (

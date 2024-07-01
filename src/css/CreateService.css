@@ -1,4 +1,4 @@
-/* Contenedor principal */
+/* src/css/CreateService.css */
 .create-service-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -6,32 +6,41 @@
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Título */
-h1 {
+  }
+  
+  h1 {
     text-align: left;
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
-}
-
-/* Grid de formulario */
-.form-grid {
+  }
+  
+  .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto auto;
     gap: 20px;
     grid-template-areas:
-        "image descripcion"
-        "nombre categoria"
-        "precio modalidad"
-        ". button";
-    align-items: start;
-}
-
-/* Subir imagen */
-.image-upload {
+      "image descripcion"
+      "nombre categoria"
+      "precio modalidad"
+      ". button";
+  }
+  
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "image"
+        "descripcion"
+        "nombre"
+        "precio"
+        "categoria"
+        "modalidad"
+        "button";
+    }
+  }
+  
+  .image-upload {
     grid-area: image;
     display: flex;
     justify-content: center;
@@ -43,18 +52,18 @@ h1 {
     position: relative;
     overflow: hidden;
     cursor: pointer;
-}
-
-.image-upload label {
+  }
+  
+  .image-upload label {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-}
-
-.image-placeholder {
+  }
+  
+  .image-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,36 +72,34 @@ h1 {
     height: 100%;
     font-size: 1.2rem;
     color: #aaa;
-}
-
-.image-preview {
+  }
+  
+  .image-preview {
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-#imageInput {
+  }
+  
+  #imageInput {
     display: none;
-}
-
-/* Estilo de grupos de formulario */
-.form-group {
+  }
+  
+  .form-group {
     display: flex;
     flex-direction: column;
-}
-
-.form-group label {
+  }
+  
+  .form-group label {
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 1.1rem;
-}
-
-/* Descripción ocupa más espacio */
-.description-group {
+  }
+  
+  .description-group {
     grid-area: descripcion;
-}
-
-textarea {
+  }
+  
+  textarea {
     width: 100%;
     height: 100%;
     padding: 10px;
@@ -101,35 +108,32 @@ textarea {
     border-radius: 10px;
     resize: none;
     height: 120px;
-}
-
-/* Campos de entrada y área de texto */
-input[type="text"],
-select {
+  }
+  
+  input[type="text"],
+  select {
     padding: 10px;
     font-size: 1rem;
     border: 2px solid #ccc;
     border-radius: 10px;
     width: 100%;
     box-sizing: border-box;
-}
-
-input[type="text"]:focus,
-textarea:focus,
-select:focus {
+  }
+  
+  input[type="text"]:focus,
+  textarea:focus,
+  select:focus {
     border-color: #999;
     outline: none;
-}
-
-/* Error de texto */
-.error-text {
+  }
+  
+  .error-text {
     color: red;
     font-size: 0.9rem;
     margin-top: 5px;
-}
-
-/* Botón de envío */
-.submit-button {
+  }
+  
+  .submit-button {
     grid-area: button;
     padding: 15px;
     background: #4CAF50;
@@ -141,32 +145,9 @@ select:focus {
     transition: background 0.3s ease;
     justify-self: end;
     align-self: center;
-}
-
-.submit-button:hover {
+  }
+  
+  .submit-button:hover {
     background: #45a049;
-}
-
-/* Botón de etiquetas */
-.add-tag-button {
-    margin-top: 10px;
-    padding: 10px;
-    background: #ffd700;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.add-tag-button:hover {
-    background: #e6c200;
-}
-
-.add-tag-button span {
-    margin-left: 5px;
-    color: #00c853;
-}
+  }
+  

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../css/Horario.css';
 
 const Horario = () => {
   const [selectedDay, setSelectedDay] = useState('Lunes');
@@ -6,20 +7,31 @@ const Horario = () => {
   const [toTime, setToTime] = useState('');
   const [shiftDuration, setShiftDuration] = useState('');
   const [timeBetweenShifts, setTimeBetweenShifts] = useState('');
+  const [schedule, setSchedule] = useState([]);
 
   const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
+  const handleConfirm = () => {
+    if (fromTime && toTime) {
+      const updatedSchedule = schedule.filter(item => item.day !== selectedDay);
+      updatedSchedule.push({ day: selectedDay, from: fromTime, to: toTime });
+      setSchedule(updatedSchedule);
+      setFromTime('');
+      setToTime('');
+    }
+  };
+
   return (
-    <div className="App">
+    <div className="horario-container">
       <h1>Disponibilidad horaria</h1>
-      <p>Sele   cionar los horarios en los que ofreces tu servicio</p>
+      <p>Seleccionar los horarios en los que ofreces tu servicio</p>
       <div className="dropdown">
         <button className="dropbtn">{selectedDay}</button>
         <div className="dropdown-content">
           {daysOfWeek.map((day) => (
-            <a key={day} onClick={() => setSelectedDay(day)}>
+            <button key={day} onClick={() => setSelectedDay(day)}>
               {day}
-            </a>
+            </button>
           ))}
         </div>
       </div>
@@ -51,9 +63,21 @@ const Horario = () => {
           />
         </div>
       </div>
-      <button className="confirm-btn">Confirmar</button>
+      <button onClick={handleConfirm}>Confirmar</button>
+
+      <div className="schedule-summary">
+        <h2>Resumen de horarios confirmados</h2>
+        <ul>
+          {schedule.map((item, index) => (
+            <li key={index}>
+              <strong>{item.day}:</strong> {item.from} - {item.to}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
-}
+};
 
 export default Horario;
+
