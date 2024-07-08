@@ -13,8 +13,24 @@ const Horario = () => {
 
   const handleConfirm = () => {
     if (fromTime && toTime) {
-      const updatedSchedule = schedule.filter(item => item.day !== selectedDay);
-      updatedSchedule.push({ day: selectedDay, from: fromTime, to: toTime });
+      const updatedSchedule = [...schedule];
+      const existingDayIndex = updatedSchedule.findIndex(item => item.day === selectedDay);
+
+      if (existingDayIndex !== -1) {
+        // Si ya existe el día en el schedule, agregamos el nuevo rango de horario
+        updatedSchedule[existingDayIndex].ranges.push({ from: fromTime, to: toTime });
+        updatedSchedule[existingDayIndex].shiftDuration = shiftDuration;
+        updatedSchedule[existingDayIndex].timeBetweenShifts = timeBetweenShifts;
+      } else {
+        // Si no existe, creamos un nuevo objeto para ese día
+        updatedSchedule.push({
+          day: selectedDay,
+          ranges: [{ from: fromTime, to: toTime }],
+          shiftDuration: shiftDuration,
+          timeBetweenShifts: timeBetweenShifts
+        });
+      }
+
       setSchedule(updatedSchedule);
       setFromTime('');
       setToTime('');
@@ -28,7 +44,7 @@ const Horario = () => {
       <div className="dropdown">
         <button className="dropbtn">{selectedDay}</button>
         <div className="dropdown-content">
-          {daysOfWeek.map((day) => (
+          {daysOfWeek.map(day => (
             <button key={day} onClick={() => setSelectedDay(day)}>
               {day}
             </button>
@@ -68,9 +84,18 @@ const Horario = () => {
       <div className="schedule-summary">
         <h2>Resumen de horarios confirmados</h2>
         <ul>
-          {schedule.map((item, index) => (
+          {schedule.map(({ day, ranges, shiftDuration, timeBetweenShifts }, index) => (
             <li key={index}>
-              <strong>{item.day}:</strong> {item.from} - {item.to}
+              <strong>{day}:</strong>
+              {ranges.map((range, idx) => (
+                <span key={idx}>
+                  {range.from} - {range.to}
+                  {idx !== ranges.length - 1 ? <br /> : ''}
+                </span>
+              ))}
+              <div>
+                Duración del turno: {shiftDuration}, Tiempo entre turnos: {timeBetweenShifts}
+              </div>
             </li>
           ))}
         </ul>
@@ -80,4 +105,3 @@ const Horario = () => {
 };
 
 export default Horario;
-
